@@ -1,59 +1,25 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import createStore from './store/createStore'
+/*eslint-disable import/default */
+import React from 'react';
+import { render } from 'react-dom';
+import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
+import { Router, browserHistory } from 'react-router';
+
 import './styles/main.scss'
 
-// Store Initialization
-// ------------------------------------
-const store = createStore(window.__INITIAL_STATE__)
 
-// Render Setup
-// ------------------------------------
-const MOUNT_NODE = document.getElementById('root')
 
-let render = () => {
-  const App = require('./components/App').default
-  const routes = require('./routes/index').default(store)
+import { loadTodos } from './actions/todoActions';
+import { loadNotifications } from './actions/notificationActions';
 
-  ReactDOM.render(
-    <App store={store} routes={routes} />,
-    MOUNT_NODE
-  )
-}
 
-// Development Tools
-// ------------------------------------
-if (__DEV__) {
-  if (module.hot) {
-    const renderApp = render
-    const renderError = (error) => {
-      const RedBox = require('redbox-react').default
+const store = configureStore();
+const App = require('./layouts/components/App').default
+const routes = require('./routes/index').default(store)
+store.dispatch(loadTodos());
+store.dispatch(loadNotifications());
 
-      ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
-    }
-
-    render = () => {
-      try {
-        renderApp()
-      } catch (e) {
-        console.error(e)
-        renderError(e)
-      }
-    }
-
-    // Setup hot module replacement
-    module.hot.accept([
-      './components/App',
-      './routes/index',
-    ], () =>
-      setImmediate(() => {
-        ReactDOM.unmountComponentAtNode(MOUNT_NODE)
-        render()
-      })
-    )
-  }
-}
-
-// Let's Go!
-// ------------------------------------
-if (!__TEST__) render()
+render(
+  <App store={store} routes={routes} />,
+  document.getElementById('root')
+);
