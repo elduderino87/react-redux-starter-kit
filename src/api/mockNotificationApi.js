@@ -1,4 +1,6 @@
 import delay from './delay';
+import * as _ from 'lodash';
+
 const notifications = [
     {
         id: 1,
@@ -12,7 +14,7 @@ const notifications = [
         type: 'selfPlacement',
         title: 'Self Placement #2',
         content: 'You have been assigned self placmeent #2 at Fitzroy medical center',
-        isNew: true        
+        isNew: true
     },
     {
         id: 3,
@@ -34,6 +36,17 @@ class NotificationApi {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(Object.assign([], notifications));
+            }, delay);
+        });
+    }
+
+    static saveNotification(notification) {
+        notification = Object.assign({}, notification);
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                notification.id = _.max(notifications.map(n=>n.id)) +1;
+                notifications.push(notification);
+                resolve(notification);
             }, delay);
         });
     }

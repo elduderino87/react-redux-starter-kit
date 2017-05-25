@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Link, IndexLink } from 'react-router';
 
 
-export const NavigationMenu = ({ loading, newNotificationsCount }) => {
+export const NavigationMenu = ({ loading, newItemsCount }) => {
   return (
     <nav>
-      <IndexLink to='/' activeClassName='page-layout__nav-item--active'>Home (<i>{newNotificationsCount}</i>) New</IndexLink>
+      <IndexLink to='/' activeClassName='page-layout__nav-item--active'>Home (<i>{newItemsCount}</i>) New</IndexLink>
       {' | '}
       <Link to='/about' activeClassName='page-layout__nav-item--active'>About</Link>
       {loading && <span>Loading...</span>}
@@ -18,7 +18,7 @@ export const NavigationMenu = ({ loading, newNotificationsCount }) => {
 
 NavigationMenu.propTypes = {
   loading: PropTypes.bool.isRequired,
-  newNotificationsCount: PropTypes.number.isRequired
+  newItemsCount: PropTypes.number.isRequired
 };
 
 

@@ -10,7 +10,7 @@ class PageLayout extends React.Component {
     return (
       <div className='container text-center'>
         <h1>React Redux Starter Kit</h1>
-        <NavigationMenu loading={this.props.loading} newNotificationsCount={this.props.newNotificationsCount} />
+        <NavigationMenu loading={this.props.loading} newItemsCount={this.props.newItemsCount} />
         <div className='page-layout__viewport'>
           {this.props.children}
         </div>
@@ -21,13 +21,13 @@ class PageLayout extends React.Component {
 PageLayout.propTypes = {
   children: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
-  newNotificationsCount: PropTypes.number.isRequired
+  newItemsCount: PropTypes.number.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     loading: state.ajaxCallsInProgress > 0,
-    newNotificationsCount: state.notifications.filter(x=>x.isNew).length
+    newItemsCount: state.notifications.filter(x=>x.isNew).length+state.todos.filter(x=>x.isNew).length
   };
 }
 
