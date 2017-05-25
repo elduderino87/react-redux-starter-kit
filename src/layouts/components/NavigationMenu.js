@@ -1,21 +1,25 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, IndexLink } from 'react-router';
-import LoadingDots from './LoadingDots';
 
-const Header = ({loading}) => {
+
+export const NavigationMenu = ({ loading, newNotificationsCount }) => {
   return (
     <nav>
-      <IndexLink to="/" activeClassName="active">Home</IndexLink>
-      {" | "}
-    
-      <Link to="/about" activeClassName="active">About</Link>
-      {loading && <LoadingDots interval={100} dots={20}/>}
+      <IndexLink to='/' activeClassName='page-layout__nav-item--active'>Home (<i>{newNotificationsCount}</i>) New</IndexLink>
+      {' | '}
+      <Link to='/about' activeClassName='page-layout__nav-item--active'>About</Link>
+      {loading && <span>Loading...</span>}
     </nav>
   );
 };
 
-Header.propTypes = {
-  loading: PropTypes.bool.isRequired
+
+
+NavigationMenu.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  newNotificationsCount: PropTypes.number.isRequired
 };
 
-export default Header;
+
+export default NavigationMenu;

@@ -1,21 +1,34 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
 import PropTypes from 'prop-types'
+import { NavigationMenu } from '../components/NavigationMenu'
+import { connect } from 'react-redux'
 import './PageLayout.scss'
 
-export const PageLayout = ({ children }) => (
-  <div className='container text-center'>
-    <h1>React Redux Starter Kit</h1>
-    <IndexLink to='/' activeClassName='page-layout__nav-item--active'>Home</IndexLink>
-    {' | '}
-    <Link to='/about' activeClassName='page-layout__nav-item--active'>About</Link>
-    <div className='page-layout__viewport'>
-      {children}
-    </div>
-  </div>
-)
+class PageLayout extends React.Component {
+  render() {
+    return (
+      <div className='container text-center'>
+        <h1>React Redux Starter Kit</h1>
+        <NavigationMenu loading={this.props.loading} newNotificationsCount={this.props.newNotificationsCount} />
+        <div className='page-layout__viewport'>
+          {this.props.children}
+        </div>
+      </div>
+    );
+  }
+}
 PageLayout.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  newNotificationsCount: PropTypes.number.isRequired
+};
+
+function mapStateToProps(state, ownProps) {
+  return {
+    loading: state.ajaxCallsInProgress > 0,
+    newNotificationsCount: state.notifications.filter(x=>x.isNew).length
+  };
 }
 
-export default PageLayout
+export default connect(mapStateToProps)(PageLayout);

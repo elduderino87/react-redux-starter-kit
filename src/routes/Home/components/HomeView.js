@@ -1,22 +1,38 @@
-import React from 'react'
-import DuckImage from '../assets/Duck.jpg'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import './HomeView.scss'
 import Todo from './TodoView'
 import Notifications from './NotificationsView'
 
-export const HomeView = () => (
-  <div className='homepage'>
-    <h4>Welcome!</h4>
-    <img alt='This is a duck, because Redux!' className='duck' src={DuckImage} />
-    <section className='l-flex'>
-      <article className='homepage__widget'>
-        <Todo />
-      </article>
-      <article className='homepage__widget'>
-        <Notifications />
-      </article>
-    </section>
-  </div>
-)
+class HomeView extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+  }
 
-export default HomeView
+  render() {
+    const { notifications } = this.props;
+
+    return (
+      <div className='homepage'>
+        <h4>Dashboard</h4>
+        <section className='l-flex'>
+          <article className='homepage__widget'>
+            <Todo />
+          </article>
+          <article className='homepage__widget'>
+            <Notifications notifications={notifications} />
+          </article>
+        </section>
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state, ownProps) {
+  return {
+    notifications: state.notifications
+  };
+}
+
+export default connect(mapStateToProps)(HomeView);
