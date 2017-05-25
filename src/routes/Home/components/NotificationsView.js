@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types'
-import './NotificationsView.scss'
+import PropTypes from 'prop-types';
+import './NotificationsView.scss';
 
 export const NotificationsView = ({ notifications, onAdd }) => (
     <div>
