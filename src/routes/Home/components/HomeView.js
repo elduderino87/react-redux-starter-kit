@@ -23,18 +23,15 @@ class HomeView extends React.Component {
   }
 
   render() {
-    const { notifications } = this.props;
-    const { todos } = this.props;
-
     return (
       <div className='homepage'>
         <h4>Dashboard</h4>
         <section className='l-flex'>
           <article className='homepage__widget'>
-            <Todo todos={todos} />
+            <Todo todos={this.props.todos} />
           </article>
           <article className='homepage__widget'>
-            <Notifications notifications={notifications} onAdd={this.addNotification} />
+            <Notifications notifications={this.props.notifications} onAdd={this.addNotification} />
           </article>
         </section>
       </div>
@@ -43,7 +40,9 @@ class HomeView extends React.Component {
 }
 
 HomeView.propTypes = {
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  notifications: PropTypes.array.isRequired,
+  todos: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state, ownProps) {

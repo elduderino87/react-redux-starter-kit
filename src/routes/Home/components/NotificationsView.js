@@ -23,7 +23,7 @@ export const NotificationsView = ({ notifications, onAdd }) => (
 )
 NotificationsView.propTypes = {
     notifications: PropTypes.array.isRequired,
-    onAdd: React.PropTypes.func.isRequired,
+    onAdd: PropTypes.func.isRequired,
 };
 
 export default NotificationsView
