@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './TodoView.scss'
 
-export const TodoView = ({todos}) => (
+export const TodoView = ({ todos }) => (
   <div>
     <h4>Todo View!</h4>
     <ul>
@@ -15,5 +16,9 @@ export const TodoView = ({todos}) => (
     </ul>
   </div>
 )
+
+TodoView.propTypes = {
+  todos: PropTypes.array.isRequired,
+}
 
 export default TodoView
